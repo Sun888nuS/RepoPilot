@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "name": "devflow-real-project-rag-baseline",
+  "label": "员工手册固定 RAG 基线",
+  "description": "基于固定演示文档验证检索、引用、回答忠实度、拒答和工具调用。",
+  "recommended": true,
+  "repository_names": ["devflow-sample-api", "course-demo/devflow-sample-api"],
+  "cases": [
+    {
+      "id": "annual-leave-days",
+      "question": "正式员工每年有多少天带薪年假？",
+      "reference": "正式员工每个自然年享有 10 天带薪年假。",
+      "source_file": "rag_employee_handbook.md",
+      "source_type": "knowledge_file",
+      "required_tools": [],
+      "must_include": ["10 天"]
+    },
+    {
+      "id": "annual-leave-carryover",
+      "question": "结转的年假最晚什么时候使用？",
+      "reference": "结转年假必须在次年 3 月 31 日前使用，逾期自动失效。",
+      "source_file": "rag_employee_handbook.md",
+      "source_type": "knowledge_file",
+      "required_tools": [],
+      "must_include": ["3 月 31 日"]
+    },
+    {
+      "id": "p0-incident-response",
+      "question": "P0 事故的响应和建群时限分别是多少？",
+      "reference": "值班工程师需在 5 分钟内响应，并在 15 分钟内建立事故协作群。",
+      "source_file": "rag_employee_handbook.md",
+      "source_type": "knowledge_file",
+      "required_tools": [],
+      "must_include": ["5 分钟", "15 分钟"]
+    },
+    {
+      "id": "expense-approval",
+      "question": "单笔 6000 元费用需要谁审批？",
+      "reference": "5000 元以上费用除直属主管外，还需要部门负责人审批。",
+      "source_file": "rag_employee_handbook.md",
+      "source_type": "knowledge_file",
+      "required_tools": [],
+      "must_include": ["直属主管", "部门负责人"]
+    },
+    {
+      "id": "negative-salary",
+      "kind": "negative",
+      "question": "高级工程师的年薪是多少？",
+      "reference": "资料没有提供高级工程师薪资信息，应明确说明证据不足。",
+      "source_file": "rag_employee_handbook.md",
+      "source_type": "knowledge_file",
+      "required_tools": [],
+      "must_include": ["没有", "资料"],
+      "must_not_include": ["30 万", "50 万", "80 万"]
+    }
+  ]
+}

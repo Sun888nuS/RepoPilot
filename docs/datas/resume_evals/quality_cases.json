@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "name": "devflow-resume-value-v1",
+  "label": "DevFlow AI 简历价值质量基准 v1",
+  "description": "覆盖 Issue 分诊、PR 阻塞问题、CI 根因、跨 Agent 门禁、证据检索与记忆隔离的人工金标集。",
+  "issue_cases": [
+    {
+      "id": "issue-bug-login-500",
+      "input": {"number": 101, "title": "Login API returns 500 when JWT expires", "body": "复现步骤：使用过期 JWT 调用 /api/login。期望返回 401，实际返回 500。影响范围：所有会话过期用户无法正常重新登录。", "labels": ["bug", "auth"], "state": "open", "assignees": []},
+      "expected": {"category": "Bug", "priority": "P1", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-bug-data-loss",
+      "input": {"number": 102, "title": "Critical data loss when retrying repository sync", "body": "复现：同步过程中网络断开后点击重试，现有 Issue 快照被清空。影响：生产仓库历史数据丢失，需要从 GitHub 重新同步。", "labels": ["bug", "critical", "data loss"], "state": "open", "assignees": []},
+      "expected": {"category": "Bug", "priority": "P0", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-documentation-typo",
+      "input": {"number": 103, "title": "README startup command has a typo", "body": "文档中的 uvicorn 命令路径拼写错误，请修正文案。", "labels": ["documentation", "p3"], "state": "open", "assignees": []},
+      "expected": {"category": "Documentation", "priority": "P3", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-feature-audit-export",
+      "input": {"number": 104, "title": "Add audit-log CSV export", "body": "场景：管理员需要导出指定日期范围的 Agent 审计记录。验收标准：支持日期过滤、UTF-8 CSV、分页导出，并且不包含密钥字段。", "labels": ["feature"], "state": "open", "assignees": []},
+      "expected": {"category": "Feature", "priority": "P2", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-ops-deploy-blocker",
+      "input": {"number": 105, "title": "Production workflow deployment is blocked", "body": "GitHub Actions deploy job 在生产环境持续失败，阻塞本周发布。日志显示容器健康检查失败，需要排查 workflow 与 Docker 配置。", "labels": ["ops", "blocker", "ci"], "state": "open", "assignees": []},
+      "expected": {"category": "Ops", "priority": "P1", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-test-retrieval-coverage",
+      "input": {"number": 106, "title": "Add regression tests for hybrid retrieval", "body": "新增测试覆盖向量召回、BM25 融合、重排降级和 score threshold 边界，避免修改检索管线后出现回归。", "labels": ["test"], "state": "open", "assignees": []},
+      "expected": {"category": "Test", "priority": "P2", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-refactor-sync-service",
+      "input": {"number": 107, "title": "Refactor GitHub sync into retriable stages", "body": "重构同步服务，将 Issue、PR、CI 日志同步拆分为独立阶段，保持 API 行为不变，并为每个阶段增加幂等重试。", "labels": ["refactor"], "state": "open", "assignees": []},
+      "expected": {"category": "Refactor", "priority": "P2", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-question-webhook",
+      "input": {"number": 108, "title": "How should the GitHub webhook secret be configured?", "body": "咨询：本地和生产环境分别在哪里配置 GITHUB_WEBHOOK_SECRET？密钥轮换时是否需要重启服务？", "labels": ["question"], "state": "open", "assignees": []},
+      "expected": {"category": "Question", "priority": "P2", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-feature-needs-clarification",
+      "input": {"number": 109, "title": "Add smarter reports", "body": "希望周报更智能、更好看。", "labels": ["feature"], "state": "open", "assignees": []},
+      "expected": {"category": "Feature", "priority": "P2", "conclusion": "等待澄清"}
+    },
+    {
+      "id": "issue-closed-invalid",
+      "input": {"number": 110, "title": "Invalid request for unsupported provider", "body": "该请求已经确认不在计划内，关闭并保留原因。", "labels": ["invalid", "bug"], "state": "closed", "assignees": []},
+      "expected": {"category": "Bug", "priority": "P2", "conclusion": "关闭"}
+    },
+    {
+      "id": "issue-feature-multi-scope",
+      "input": {"number": 111, "title": "Add mobile app, billing, analytics and SSO", "body": "同时新增移动端、订阅计费、用户行为分析以及企业 SSO，并且迁移现有权限模型；每部分都有独立验收条件。", "labels": ["feature"], "state": "open", "assignees": []},
+      "expected": {"category": "Feature", "priority": "P2", "conclusion": "拆分"}
+    },
+    {
+      "id": "issue-bug-duplicate",
+      "input": {"number": 112, "title": "Expired token causes 500", "body": "复现：令牌过期后调用接口。期望 401，实际 500，影响登录恢复流程。", "labels": ["bug"], "state": "open", "assignees": []},
+      "context": {"duplicate_candidates": [{"issue_id": "101", "title": "Login API returns 500 when JWT expires", "score": 0.93}]},
+      "expected": {"category": "Bug", "priority": "P1", "conclusion": "合并到已有 Issue"}
+    },
+    {
+      "id": "issue-security-p0",
+      "input": {"number": 113, "title": "Security: repository token exposed in API response", "body": "复现：普通成员读取仓库配置接口，响应包含完整访问 token。影响：凭据泄露，可访问私有仓库。", "labels": ["bug", "security"], "state": "open", "assignees": []},
+      "expected": {"category": "Bug", "priority": "P0", "conclusion": "进入开发"}
+    },
+    {
+      "id": "issue-minor-ui-bug",
+      "input": {"number": 114, "title": "Minor UI bug in empty-state copy", "body": "复现：打开没有 PR 的仓库页面。期望显示“暂无 PR”，实际文案重复两次。影响仅限空状态展示。", "labels": ["bug", "minor", "p3"], "state": "open", "assignees": []},
+      "expected": {"category": "Bug", "priority": "P3", "conclusion": "进入开发"}
+    }
+  ],
+  "pr_cases": [
+    {
+      "id": "pr-auth-signature-bypass",
+      "input": {"number": 201, "title": "Speed up JWT parsing", "body": "Avoid repeated verification work.", "state": "open", "files": [{"filename": "backend/app/auth/token.py", "status": "modified", "additions": 4, "deletions": 2, "patch": "+ payload = jwt.decode(token, options={\"verify_signature\": False})\n+ return payload.get(\"sub\")"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "signature-bypass", "severity": "P1", "blocking": true, "match_any": ["signature", "签名", "bypass", "verify_signature"], "evidence_any": ["token.py"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-sql-injection",
+      "input": {"number": 202, "title": "Add raw repository lookup", "body": "Adds a convenience endpoint.", "state": "open", "files": [{"filename": "backend/app/api/routes/repos.py", "status": "modified", "additions": 7, "deletions": 0, "patch": "+ query = f\"SELECT * FROM repositories WHERE id = '{request.query_params['id']}'\"\n+ return db.execute(text(query)).first()"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "sql-injection", "severity": "P1", "blocking": true, "match_any": ["sql injection", "sql 注入", "参数化", "拼接"], "evidence_any": ["repos.py"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-destructive-migration",
+      "input": {"number": 203, "title": "Remove legacy user email", "body": "Cleanup old field.", "state": "open", "files": [{"filename": "backend/migrations/versions/drop_email.py", "status": "added", "additions": 8, "deletions": 0, "patch": "+ def upgrade():\n+     op.drop_column('users', 'email')\n+ def downgrade():\n+     pass"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "data-loss-migration", "severity": "P1", "blocking": true, "match_any": ["data loss", "数据丢失", "drop_column", "回滚"], "evidence_any": ["drop_email.py"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-secret-logging",
+      "input": {"number": 204, "title": "Improve sync diagnostics", "body": "Log connection context.", "state": "open", "files": [{"filename": "backend/app/services/github/client.py", "status": "modified", "additions": 2, "deletions": 0, "patch": "+ logger.info(f\"GITHUB_TOKEN={self.token}\")\n+ logger.info(f\"repo={owner}/{name}\")"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "secret-log", "severity": "P1", "blocking": true, "match_any": ["token", "secret", "凭据", "敏感"], "evidence_any": ["client.py"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-breaking-api-no-test",
+      "input": {"number": 205, "title": "Rename repository response field", "body": "Rename full_name to slug.", "state": "open", "files": [{"filename": "backend/app/schemas/repos.py", "status": "modified", "additions": 1, "deletions": 1, "patch": "- full_name: str\n+ slug: str"}, {"filename": "frontend/lib/types.ts", "status": "modified", "additions": 1, "deletions": 1, "patch": "- full_name: string\n+ slug: string"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "breaking-contract", "severity": "P2", "blocking": true, "match_any": ["breaking", "兼容", "contract", "字段", "测试"], "evidence_any": ["repos.py", "types.ts"]}],
+      "expected_merge": ["修改后合入", "暂缓"]
+    },
+    {
+      "id": "pr-sensitive-no-tests",
+      "input": {"number": 206, "title": "Refactor permission middleware", "body": "Simplify role checks.", "state": "open", "files": [{"filename": "backend/app/core/permissions.py", "status": "modified", "additions": 70, "deletions": 42, "patch": "+ def can_write(user, repo):\n+     return user.role != 'viewer'"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "permission-tests", "severity": "P2", "blocking": true, "match_any": ["test", "测试", "permission", "权限", "边界"], "evidence_any": ["permissions.py"]}],
+      "expected_merge": ["修改后合入", "暂缓"]
+    },
+    {
+      "id": "pr-unresolved-comment",
+      "input": {"number": 207, "title": "Update GitHub sync retries", "body": "Retry transient errors.", "state": "open", "files": [{"filename": "backend/app/services/repos_sync.py", "status": "modified", "additions": 24, "deletions": 5, "patch": "+ retry_transient_errors()"}], "comments": [{"body": "Please add an upper bound and jitter; this loop can retry forever.", "path": "backend/app/services/repos_sync.py", "line": 88}]},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "unresolved-review", "severity": "P2", "blocking": true, "match_any": ["review", "comment", "评论", "retry", "重试"], "evidence_any": ["repos_sync.py"]}],
+      "expected_merge": ["修改后合入", "暂缓"]
+    },
+    {
+      "id": "pr-failed-ci",
+      "input": {"number": 208, "title": "Improve report generation", "body": "Refines weekly report sections.", "state": "open", "files": [{"filename": "backend/app/services/agents/report_agent.py", "status": "modified", "additions": 30, "deletions": 12, "patch": "+ render_risks()"}, {"filename": "backend/app/tests/test_report_agent.py", "status": "modified", "additions": 15, "deletions": 2, "patch": "+ test_risk_section()"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 1, "latest_failed_run": "backend-test"}},
+      "expected_findings": [{"id": "failed-ci", "severity": "P1", "blocking": true, "match_any": ["ci", "workflow", "失败", "failed"], "evidence_any": ["backend-test"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-clean-docs",
+      "input": {"number": 209, "title": "Clarify local startup documentation", "body": "Updates commands and troubleshooting notes.", "state": "open", "files": [{"filename": "README.md", "status": "modified", "additions": 18, "deletions": 4, "patch": "+ Run start_local.ps1 after Docker Desktop is ready."}, {"filename": "backend/app/tests/test_docs_examples.py", "status": "added", "additions": 22, "deletions": 0, "patch": "+ def test_start_command_is_current(): ..."}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [],
+      "expected_merge": ["建议合入"]
+    },
+    {
+      "id": "pr-clean-ui-copy",
+      "input": {"number": 210, "title": "Improve empty-state copy", "body": "Small UI copy update with snapshot coverage.", "state": "open", "files": [{"filename": "frontend/app/pull-requests/page.tsx", "status": "modified", "additions": 2, "deletions": 2, "patch": "- No PRs\n+ 暂无 Pull Request"}, {"filename": "frontend/app/pull-requests/page.test.tsx", "status": "modified", "additions": 4, "deletions": 1, "patch": "+ expect(screen.getByText('暂无 Pull Request')).toBeVisible()"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "unsupported-snapshot-claim", "severity": "P2", "blocking": true, "match_any": ["snapshot", "coverage", "覆盖", "测试"], "evidence_any": ["page.test.tsx"]}],
+      "expected_merge": ["修改后合入", "暂缓"]
+    },
+    {
+      "id": "pr-path-traversal",
+      "input": {"number": 211, "title": "Add attachment upload", "body": "Save uploaded artifacts.", "state": "open", "files": [{"filename": "backend/app/api/routes/uploads.py", "status": "added", "additions": 16, "deletions": 0, "patch": "+ target = upload_dir / file.filename\n+ target.write_bytes(await file.read())"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "path-traversal", "severity": "P1", "blocking": true, "match_any": ["path traversal", "路径穿越", "filename", "文件名"], "evidence_any": ["uploads.py"]}],
+      "expected_merge": ["暂缓", "拒绝", "修改后合入"]
+    },
+    {
+      "id": "pr-timezone-edge-no-test",
+      "input": {"number": 212, "title": "Change weekly report date boundary", "body": "Use client timezone for report windows.", "state": "open", "files": [{"filename": "backend/app/services/agents/report_agent.py", "status": "modified", "additions": 28, "deletions": 6, "patch": "+ start = datetime.fromisoformat(user_start).replace(tzinfo=timezone.utc)\n+ end = start + timedelta(days=7)"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [{"id": "timezone-boundary", "severity": "P2", "blocking": true, "match_any": ["timezone", "时区", "boundary", "边界", "test", "测试"], "evidence_any": ["report_agent.py"]}],
+      "expected_merge": ["修改后合入", "暂缓"]
+    },
+    {
+      "id": "pr-clean-auth-validation",
+      "input": {"number": 213, "title": "Validate JWT audience claim", "body": "Tightens token validation and includes positive and negative tests.", "state": "open", "files": [{"filename": "backend/app/auth/token.py", "status": "modified", "additions": 8, "deletions": 2, "patch": "+ jwt.decode(token, key, algorithms=['RS256'], audience='devflow-api')"}, {"filename": "backend/app/tests/test_token.py", "status": "modified", "additions": 22, "deletions": 0, "patch": "+ test_valid_audience()\n+ test_invalid_audience_rejected()"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [],
+      "expected_merge": ["建议合入"]
+    },
+    {
+      "id": "pr-clean-additive-migration",
+      "input": {"number": 214, "title": "Add nullable repository archive timestamp", "body": "Backward-compatible additive migration with downgrade and tests.", "state": "open", "files": [{"filename": "backend/migrations/versions/add_archived_at.py", "status": "added", "additions": 14, "deletions": 0, "patch": "+ def upgrade(): op.add_column('repositories', sa.Column('archived_at', sa.DateTime(), nullable=True))\n+ def downgrade(): op.drop_column('repositories', 'archived_at')"}, {"filename": "backend/app/tests/test_repo_migration.py", "status": "added", "additions": 28, "deletions": 0, "patch": "+ test_upgrade_and_downgrade_archive_timestamp()"}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [],
+      "expected_merge": ["建议合入"]
+    },
+    {
+      "id": "pr-clean-cors-config",
+      "input": {"number": 215, "title": "Allow the documented local preview origin", "body": "Adds an explicitly documented localhost origin and a configuration regression test.", "state": "open", "files": [{"filename": "backend/app/core/config.py", "status": "modified", "additions": 2, "deletions": 1, "patch": "+ cors_origins = 'http://localhost:3000,http://127.0.0.1:3000'"}, {"filename": "backend/app/tests/test_cors_config.py", "status": "added", "additions": 18, "deletions": 0, "patch": "+ def test_documented_local_origins_are_allowed(): ..."}], "comments": []},
+      "context": {"ci_summary": {"failed_runs": 0}},
+      "expected_findings": [],
+      "expected_merge": ["建议合入"]
+    }
+  ],
+  "ci_cases": [
+    {
+      "id": "ci-test-assertion",
+      "input": {"name": "backend-test", "status": "completed", "conclusion": "failure", "jobs": [{"name": "pytest", "conclusion": "failure", "steps": [{"name": "Run tests", "conclusion": "failure"}]}], "logs_text": "FAILED tests/test_auth.py::test_expired_token\nAssertionError: expected 401, got 500"},
+      "expected": {"failure_type": "test", "root_any": ["断言", "401", "500", "被测行为"], "related_file_any": ["tests/test_auth.py"]}
+    },
+    {
+      "id": "ci-dependency-module",
+      "input": {"name": "backend-test", "status": "completed", "conclusion": "failure", "jobs": [{"name": "pytest", "conclusion": "failure", "steps": [{"name": "Import app", "conclusion": "failure"}]}], "logs_text": "ModuleNotFoundError: No module named 'sentence_transformers'\n  File \"backend/app/services/rag/embeddings.py\", line 72"},
+      "expected": {"failure_type": "dependency", "root_any": ["依赖", "模块", "module", "sentence_transformers"], "related_file_any": ["backend/app/services/rag/embeddings.py"]}
+    },
+    {
+      "id": "ci-permission-token",
+      "input": {"name": "sync-private-repo", "status": "completed", "conclusion": "failure", "jobs": [{"name": "sync", "conclusion": "failure", "steps": [{"name": "Fetch repository", "conclusion": "failure"}]}], "logs_text": "HTTP 403 Forbidden: Resource not accessible by integration\nworkflow file: .github/workflows/sync.yml"},
+      "expected": {"failure_type": "permission", "root_any": ["权限", "token", "scope", "403"], "related_file_any": [".github/workflows/sync.yml"]}
+    },
+    {
+      "id": "ci-environment-missing",
+      "input": {"name": "api-smoke", "status": "completed", "conclusion": "failure", "jobs": [{"name": "smoke", "conclusion": "failure", "steps": [{"name": "Start API", "conclusion": "failure"}]}], "logs_text": "RuntimeError: required environment variable DATABASE_URL is not set\n  File \"backend/app/core/config.py\", line 8"},
+      "expected": {"failure_type": "environment", "root_any": ["环境变量", "DATABASE_URL", "env", "缺失"], "related_file_any": ["backend/app/core/config.py"]}
+    },
+    {
+      "id": "ci-lint-eslint",
+      "input": {"name": "frontend-lint", "status": "completed", "conclusion": "failure", "jobs": [{"name": "lint", "conclusion": "failure", "steps": [{"name": "Run ESLint", "conclusion": "failure"}]}], "logs_text": "frontend/app/page.tsx\n88:7  error  'result' is assigned a value but never used  @typescript-eslint/no-unused-vars\nESLint found 1 error"},
+      "expected": {"failure_type": "lint", "root_any": ["lint", "eslint", "规则", "no-unused-vars"], "related_file_any": ["frontend/app/page.tsx"]}
+    },
+    {
+      "id": "ci-build-typescript",
+      "input": {"name": "frontend-build", "status": "completed", "conclusion": "failure", "jobs": [{"name": "build", "conclusion": "failure", "steps": [{"name": "next build", "conclusion": "failure"}]}], "logs_text": "Type error: Property 'rerank_mode' does not exist on type RetrievalResult\n  frontend/lib/rag.ts:42:18\nNext build failed"},
+      "expected": {"failure_type": "build", "root_any": ["类型", "type", "rerank_mode", "编译"], "related_file_any": ["frontend/lib/rag.ts"]}
+    },
+    {
+      "id": "ci-test-timeout",
+      "input": {"name": "integration-test", "status": "completed", "conclusion": "failure", "jobs": [{"name": "pytest", "conclusion": "failure", "steps": [{"name": "Run integration tests", "conclusion": "failure"}]}], "logs_text": "FAILED tests/test_sync.py::test_repo_sync_timeout\nTimeoutError: GitHub request exceeded 30 seconds\n  File \"backend/app/services/repos_sync.py\", line 118"},
+      "expected": {"failure_type": "test", "root_any": ["timeout", "超时", "GitHub", "测试"], "related_file_any": ["backend/app/services/repos_sync.py", "tests/test_sync.py"]}
+    },
+    {
+      "id": "ci-dependency-version",
+      "input": {"name": "install", "status": "completed", "conclusion": "failure", "jobs": [{"name": "dependencies", "conclusion": "failure", "steps": [{"name": "pip install", "conclusion": "failure"}]}], "logs_text": "ERROR: No matching distribution found for torch==9.9.9\nrequirements.txt: torch==9.9.9"},
+      "expected": {"failure_type": "dependency", "root_any": ["依赖", "版本", "distribution", "torch"], "related_file_any": ["requirements.txt"]}
+    },
+    {
+      "id": "ci-build-webpack",
+      "input": {"name": "frontend-build", "status": "completed", "conclusion": "failure", "jobs": [{"name": "build", "conclusion": "failure", "steps": [{"name": "Compile", "conclusion": "failure"}]}], "logs_text": "Module parse failed: Unexpected token (31:4)\nFile was processed with these loaders:\nfrontend/components/feedback-controls.tsx"},
+      "expected": {"failure_type": "build", "root_any": ["构建", "parse", "编译", "token"], "related_file_any": ["frontend/components/feedback-controls.tsx"]}
+    },
+    {
+      "id": "ci-unknown-segfault",
+      "input": {"name": "native-test", "status": "completed", "conclusion": "failure", "jobs": [{"name": "native", "conclusion": "failure", "steps": [{"name": "Run binary", "conclusion": "failure"}]}], "logs_text": "Process completed with exit code 139\nSegmentation fault (core dumped)"},
+      "expected": {"failure_type": "unknown", "root_any": ["信息不足", "exit code 139", "segmentation", "首个错误"], "related_file_any": []}
+    }
+  ],
+  "workflow_cases": [
+    {
+      "id": "workflow-all-clear",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "pr", "agent_name": "pr_review_agent", "task_type": "pr_review", "status": "success", "summary": "No blockers.", "output": {"merge_recommendation": "建议合入", "blocking_issues": []}, "evidence_count": 2, "confidence": 0.86}],
+      "expected_decision_any": ["建议合入"], "expected_findings": []
+    },
+    {
+      "id": "workflow-ci-overrides-pr",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "pr", "agent_name": "pr_review_agent", "task_type": "pr_review", "status": "success", "summary": "PR looks mergeable.", "output": {"merge_recommendation": "建议合入", "blocking_issues": []}, "evidence_count": 2, "confidence": 0.82}, {"task_id": "ci", "agent_name": "ci_debug_agent", "task_type": "ci_debug", "status": "success", "summary": "Tests fail.", "output": {"is_merge_blocking": true, "failure_type": "test", "debug_steps": ["Fix tests"]}, "evidence_count": 2, "confidence": 0.84}],
+      "expected_decision_any": ["暂缓"], "expected_findings": ["ci_merge_gate", "cross_agent_conflict"]
+    },
+    {
+      "id": "workflow-pr-blocker",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "pr", "agent_name": "pr_review_agent", "task_type": "pr_review", "status": "success", "summary": "Security blocker.", "output": {"merge_recommendation": "修改后合入", "blocking_issues": ["JWT signature bypass"]}, "evidence_count": 1, "confidence": 0.9}],
+      "expected_decision_any": ["阻塞项", "不建议"], "expected_findings": ["pr_blocking_issues"]
+    },
+    {
+      "id": "workflow-human-confirmation",
+      "requires_human_confirmation": true,
+      "task_results": [{"task_id": "safety", "agent_name": "safety_agent", "task_type": "safety_review", "status": "success", "summary": "Confirmation required.", "output": {"requires_confirmation": true}, "evidence_count": 1, "confidence": 0.95}],
+      "expected_decision_any": ["草稿", "人工确认"], "expected_findings": ["human_confirmation_required"]
+    },
+    {
+      "id": "workflow-missing-safety",
+      "requires_human_confirmation": true,
+      "task_results": [],
+      "expected_decision_any": ["阻塞项", "不建议"], "expected_findings": ["missing_safety_review"]
+    },
+    {
+      "id": "workflow-evidence-gap",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "pr", "agent_name": "pr_review_agent", "task_type": "pr_review", "status": "success", "summary": "Looks acceptable without evidence.", "output": {"merge_recommendation": "建议合入", "blocking_issues": []}, "evidence_count": 0, "confidence": 0.72}],
+      "expected_decision_any": ["补齐", "证据"], "expected_findings": ["evidence_gap"]
+    },
+    {
+      "id": "workflow-low-confidence",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "issue", "agent_name": "issue_analyst_agent", "task_type": "issue_analysis", "status": "success", "summary": "Tentative triage.", "output": {"suggested_owner": "Alice"}, "evidence_count": 1, "confidence": 0.35}],
+      "context": {"team_members": [{"name": "Alice"}]},
+      "expected_decision_any": ["补齐", "警告", "继续推进"], "expected_findings": ["low_confidence"]
+    },
+    {
+      "id": "workflow-task-error",
+      "requires_human_confirmation": false,
+      "task_results": [{"task_id": "ci", "agent_name": "ci_debug_agent", "task_type": "ci_debug", "status": "error", "summary": "CI analysis failed.", "output": {}, "evidence_count": 0, "confidence": 0.0, "error": "timeout"}],
+      "expected_decision_any": ["阻塞项", "不建议"], "expected_findings": ["task_error"]
+    }
+  ],
+  "evidence_documents": [
+    {"id": "auth-token-policy", "title": "认证令牌处理规范", "content": "访问令牌过期时，API 必须返回 401 Unauthorized，不得返回 500。客户端刷新令牌只允许重试一次，并携带幂等键，避免重复创建会话。"},
+    {"id": "pr-severity-policy", "title": "PR 审查分级规范", "content": "P1 表示功能错误、安全问题、数据风险或失败 CI；P2 表示测试覆盖不足、重要边界遗漏、未处理 review comment 或敏感文件缺少验证。P1 和 P2 均阻塞直接合入。"},
+    {"id": "ci-dependency-runbook", "title": "CI 依赖故障手册", "content": "遇到 ModuleNotFoundError 或 No matching distribution 时，先检查 lockfile、requirements 与运行时版本，再清理缓存重跑。首个依赖解析错误比后续级联失败更接近根因。"},
+    {"id": "merge-gate-policy", "title": "合并门禁策略", "content": "任何 required workflow 处于 failure 时必须暂缓合并。即使 PR Review 建议合入，CI 门禁也具有更高优先级，直至失败被修复或明确豁免。"},
+    {"id": "memory-approval-policy", "title": "长期记忆审批策略", "content": "会话中提取的事实、决策和任务首先进入 pending 候选。只有人工批准后才能写入 memory_note 并参与跨会话检索；rejected、pending、stale 或 superseded 的记忆不得用于确定性结论。"},
+    {"id": "migration-safety", "title": "数据库迁移安全规范", "content": "生产迁移优先使用向后兼容的加法变更。删除列前必须完成数据备份、双写迁移和回滚验证；空 downgrade 不满足可恢复性要求。"},
+    {"id": "external-write-safety", "title": "外部写入安全规范", "content": "发布 GitHub 评论、创建或关闭 Issue、修改标签以及发送外部报告都必须先生成草稿并由用户确认。MVP 模式不得直接执行这些写操作。"},
+    {"id": "team-routing-policy", "title": "负责人路由规范", "content": "负责人只能从已配置 team_members 或 GitHub 现有 assignees 中选择。代码作者、文档中出现的人名和模型生成的角色都不能自动成为负责人。"},
+    {"id": "incident-response", "title": "生产事故响应规范", "content": "P0 事故要求值班工程师 5 分钟内响应，15 分钟内建立协作群，每 30 分钟同步进展，并在恢复后 2 个工作日内完成复盘。"},
+    {"id": "rag-source-policy", "title": "RAG 数据源策略", "content": "Issue、PR、失败 CI 日志、项目文档、上传知识和已批准记忆可以进入语义检索。当前源码必须通过工作区实时读取，团队成员和实时状态必须查询结构化数据源。"}
+  ],
+  "evidence_cases": [
+    {"id": "evidence-auth-status", "question": "JWT 过期时 API 应返回什么状态码？", "expected_doc_ids": ["auth-token-policy"], "kind": "positive"},
+    {"id": "evidence-refresh-limit", "question": "刷新令牌最多重试几次，如何避免重复会话？", "expected_doc_ids": ["auth-token-policy"], "kind": "positive"},
+    {"id": "evidence-pr-p1", "question": "什么类型的 PR 问题属于 P1？", "expected_doc_ids": ["pr-severity-policy"], "kind": "positive"},
+    {"id": "evidence-ci-module", "question": "CI 出现 ModuleNotFoundError 应优先检查什么？", "expected_doc_ids": ["ci-dependency-runbook"], "kind": "positive"},
+    {"id": "evidence-merge-gate", "question": "PR 建议合入但 required CI 失败时应该怎么决策？", "expected_doc_ids": ["merge-gate-policy"], "kind": "positive"},
+    {"id": "evidence-memory-approval", "question": "pending 记忆能否参与跨会话确定性结论？", "expected_doc_ids": ["memory-approval-policy"], "kind": "positive"},
+    {"id": "evidence-migration", "question": "删除生产数据库列之前需要哪些保护措施？", "expected_doc_ids": ["migration-safety"], "kind": "positive"},
+    {"id": "evidence-write-safety", "question": "系统能否直接发布 GitHub 评论？", "expected_doc_ids": ["external-write-safety"], "kind": "positive"},
+    {"id": "evidence-owner", "question": "自动推荐负责人时允许从哪些人员中选择？", "expected_doc_ids": ["team-routing-policy"], "kind": "positive"},
+    {"id": "evidence-incident", "question": "P0 事故的响应和建群时限是多少？", "expected_doc_ids": ["incident-response"], "kind": "positive"},
+    {"id": "evidence-negative-salary", "question": "公司高级工程师的年薪是多少？", "expected_doc_ids": [], "kind": "negative"},
+    {"id": "evidence-negative-vacation", "question": "员工每年有多少天带薪年假？", "expected_doc_ids": [], "kind": "negative"}
+  ],
+  "memory_cases": [
+    {"id": "memory-approved-current", "status": "approved", "kind": "decision", "content": "认证刷新逻辑保留在 middleware，并补充过期令牌回归测试。", "query": "认证刷新逻辑放在哪里？", "expected_retrieved": true},
+    {"id": "memory-approved-task", "status": "approved", "kind": "task", "content": "下一步任务是为 ExpiredSignatureError 增加 401 接口测试。", "query": "过期令牌下一步要补什么测试？", "expected_retrieved": true},
+    {"id": "memory-pending-unapproved", "status": "pending", "kind": "decision", "content": "未经批准：所有数据库迁移都可以跳过回滚。", "query": "数据库迁移是否可以跳过回滚？", "expected_retrieved": false},
+    {"id": "memory-rejected", "status": "rejected", "kind": "fact", "content": "已拒绝：生产环境使用 SQLite。", "query": "生产环境使用什么数据库？", "expected_retrieved": false},
+    {"id": "memory-stale", "status": "approved_stale", "kind": "decision", "content": "过期决策：JWT 过期时继续返回 500。", "query": "JWT 过期时应该返回什么？", "expected_retrieved": false}
+  ]
+}

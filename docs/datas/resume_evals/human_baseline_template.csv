@@ -1,0 +1,2 @@
+case_id,task_type,reviewer_id,started_at,completed_at,duration_seconds,decision,quality_pass,notes
+example-001,issue_triage,reviewer-1,2026-10-07T09:00:00+08:00,2026-10-07T09:02:00+08:00,120,Bug/P1,TRUE,示例行；正式测试时删除
